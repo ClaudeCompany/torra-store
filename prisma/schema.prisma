@@ -1,0 +1,44 @@
+// Torra — schema do catalogo. Valores monetarios SEMPRE em centavos (Int),
+// nunca float. Peso sempre em gramas (Int). Ver docs/business-rules.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String
+  origin      String // regiao de origem do grao
+  roast       String // nivel de torra: clara, media, escura
+  active      Boolean   @default(true)
+  variants    Variant[]
+  createdAt   DateTime  @default(now())
+}
+
+model Variant {
+  id         String  @id @default(cuid())
+  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String
+  label      String // ex: "250g", "500g", "1kg"
+  weightGram Int // peso liquido em gramas (usado no calculo de frete)
+  priceCents Int // preco em centavos
+  stock      Int     @default(0)
+
+  @@unique([productId, label])
+}
+
+model Coupon {
+  code        String    @id // codigo em maiusculas, ex: "BEMVINDO10"
+  type        String // "PERCENT" (value = %) ou "FIXED" (value = centavos)
+  value       Int
+  minSubtotal Int       @default(0) // subtotal minimo em centavos para valer
+  active      Boolean   @default(true)
+  expiresAt   DateTime?
+}

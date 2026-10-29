@@ -1,0 +1,30 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# dados locais (SQLite)
+*.db
+*.db-journal
+prisma/dev.db*
+
+.env
+.env.local
+.env*.local
+
+# testes
+coverage/
+test-results/
+playwright-report/
+.playwright/
+
+# sistema
+.DS_Store
+*.log
+npm-debug.log*
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
