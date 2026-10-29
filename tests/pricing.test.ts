@@ -43,4 +43,50 @@ describe("buildQuote", () => {
     expect(quote.discountCents).toBe(0);
     expect(quote.totalCents).toBe(11500);
   });
+
+  it("frete gratis acima do limite", () => {
+    const freeItems: CartItem[] = [
+      {
+        variantId: "v2",
+        name: "Cafe Especial",
+        label: "1kg",
+        priceCents: 20000,
+        weightGram: 1000,
+        quantity: 1,
+      },
+    ];
+
+    const { quote } = buildQuote({ items: freeItems, cep: "01310100" });
+    expect(quote.shippingCents).toBe(0);
+  });
+
+  it("frete gratis exatamente no limite (15000)", () => {
+    const freeItems: CartItem[] = [
+      {
+        variantId: "v2",
+        name: "Cafe Especial",
+        label: "1kg",
+        priceCents: 15000,
+        weightGram: 1000,
+        quantity: 1,
+      },
+    ];
+    const { quote } = buildQuote({ items: freeItems, cep: "01310100" });
+    expect(quote.shippingCents).toBe(0);
+  });
+
+  it("cobra frete abaixo do limite", () => {
+    const paidItems: CartItem[] = [
+      {
+        variantId: "v2",
+        name: "Cafe Especial",
+        label: "1kg",
+        priceCents: 10000,
+        weightGram: 1000,
+        quantity: 1,
+      },
+    ];
+    const { quote } = buildQuote({ items: paidItems, cep: "01310100" });
+    expect(quote.shippingCents).toBe(1500);
+  });
 });
