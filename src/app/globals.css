@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-torra-foam text-torra-bean;
+@layer base {
+  body {
+    @apply bg-paper font-body text-ink antialiased;
+  }
+
+  /* foco visivel sempre (acessibilidade) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-cherry ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer utilities {
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

@@ -13,6 +13,10 @@ prisma/dev.db*
 .env.local
 .env*.local
 
+# build info
+*.tsbuildinfo
+next-env.d.ts
+
 # testes
 coverage/
 test-results/

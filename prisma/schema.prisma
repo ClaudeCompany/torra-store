@@ -17,6 +17,10 @@ model Product {
   description String
   origin      String // regiao de origem do grao
   roast       String // nivel de torra: clara, media, escura
+  process     String // beneficiamento: natural, cereja descascado, lavado
+  altitude    String // faixa de altitude do cultivo, ex: "1100-1300m"
+  variety     String // variedade botanica, ex: "Bourbon Amarelo"
+  notes       String // notas sensoriais curtas, ex: "caramelo, amendoa, cacau"
   active      Boolean   @default(true)
   variants    Variant[]
   createdAt   DateTime  @default(now())

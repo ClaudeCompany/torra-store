@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatBRL } from "@/lib/money";
 import type { Quote } from "@/lib/types";
@@ -29,7 +30,7 @@ export default function CartPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setMessage(data.error ?? "Erro ao calcular.");
+        setMessage(data.error ?? "Não foi possível calcular agora.");
         return;
       }
       setQuote(data.quote);
@@ -40,85 +41,125 @@ export default function CartPage() {
   }
 
   if (items.length === 0) {
-    return <p className="text-torra-roast">Seu carrinho está vazio.</p>;
+    return (
+      <div className="mx-auto max-w-6xl px-4 py-24 text-center">
+        <p className="eyebrow">Carrinho</p>
+        <h1 className="mt-3 font-display text-4xl font-extrabold tracking-tightest">
+          Ainda sem café por aqui.
+        </h1>
+        <p className="mt-3 text-muted">
+          Escolha um microlote e ele começa a torrar assim que você fechar.
+        </p>
+        <Link
+          href="/"
+          className="mt-8 inline-block bg-ink px-6 py-3 font-mono text-xs uppercase tracking-[0.14em] text-paper hover:bg-cherry"
+        >
+          Ver os cafés
+        </Link>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-bold">Carrinho</h1>
+    <div className="mx-auto max-w-6xl px-4 py-10">
+      <h1 className="font-display text-4xl font-extrabold tracking-tightest">Seu carrinho</h1>
 
-      <ul className="space-y-3">
-        {items.map((i) => (
-          <li
-            key={i.variantId}
-            className="flex items-center justify-between rounded border border-torra-crema/40 bg-white p-3"
-          >
-            <div>
-              <p className="font-medium">
-                {i.name} — {i.label}
-              </p>
-              <p className="text-sm text-torra-roast">{formatBRL(i.priceCents)}</p>
-            </div>
-            <div className="flex items-center gap-2">
+      <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_360px]">
+        <ul className="divide-y divide-line border-y border-line">
+          {items.map((i) => (
+            <li key={i.variantId} className="flex items-center justify-between gap-4 py-5">
+              <div>
+                <p className="font-display text-lg font-bold">{i.name}</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted">
+                  {i.label} · {formatBRL(i.priceCents)}
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <input
+                  type="number"
+                  min={1}
+                  value={i.quantity}
+                  onChange={(e) => setQuantity(i.variantId, Number(e.target.value))}
+                  aria-label={`Quantidade de ${i.name}`}
+                  className="w-16 border border-line bg-surface px-2 py-1.5 text-center font-mono"
+                />
+                <button
+                  onClick={() => remove(i.variantId)}
+                  className="font-mono text-xs uppercase tracking-[0.1em] text-muted hover:text-cherry"
+                >
+                  remover
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <aside className="h-fit border border-line bg-surface p-6 lg:sticky lg:top-24">
+          <p className="eyebrow">Resumo</p>
+
+          <div className="mt-4 grid gap-3">
+            <label className="block">
+              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+                CEP
+              </span>
               <input
-                type="number"
-                min={1}
-                value={i.quantity}
-                onChange={(e) => setQuantity(i.variantId, Number(e.target.value))}
-                className="w-16 rounded border border-torra-crema/60 px-2 py-1"
+                placeholder="01310-100"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+                className="mt-1 w-full border border-line bg-paper px-3 py-2 font-mono"
               />
-              <button onClick={() => remove(i.variantId)} className="text-sm text-red-700">
-                remover
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </label>
+            <label className="block">
+              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-muted">
+                Cupom
+              </span>
+              <input
+                placeholder="BEMVINDO10"
+                value={coupon}
+                onChange={(e) => setCoupon(e.target.value)}
+                className="mt-1 w-full border border-line bg-paper px-3 py-2 font-mono uppercase"
+              />
+            </label>
+          </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        <input
-          placeholder="CEP (ex: 01310-100)"
-          value={cep}
-          onChange={(e) => setCep(e.target.value)}
-          className="rounded border border-torra-crema/60 px-3 py-2"
-        />
-        <input
-          placeholder="Cupom (opcional)"
-          value={coupon}
-          onChange={(e) => setCoupon(e.target.value)}
-          className="rounded border border-torra-crema/60 px-3 py-2"
-        />
-      </div>
+          <button
+            onClick={calcular}
+            disabled={loading}
+            className="mt-4 w-full bg-ink px-4 py-3 font-mono text-xs uppercase tracking-[0.14em] text-paper transition-colors hover:bg-cherry disabled:opacity-50"
+          >
+            {loading ? "Calculando..." : "Calcular frete e total"}
+          </button>
 
-      <button
-        onClick={calcular}
-        disabled={loading}
-        className="mt-4 rounded bg-torra-bean px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
-      >
-        {loading ? "Calculando..." : "Calcular frete e total"}
-      </button>
-
-      {message && <p className="mt-3 text-sm text-red-700">{message}</p>}
-
-      {quote && (
-        <dl className="mt-6 space-y-1 border-t border-torra-crema/40 pt-4 text-sm">
-          <Row label="Subtotal" value={formatBRL(quote.subtotalCents)} />
-          {quote.discountCents > 0 && (
-            <Row label="Desconto" value={`- ${formatBRL(quote.discountCents)}`} />
+          {message && (
+            <p className="mt-3 border-l-2 border-cherry pl-3 text-sm text-cherry-dark">{message}</p>
           )}
-          <Row label="Frete" value={formatBRL(quote.shippingCents)} />
-          <Row label="Total" value={formatBRL(quote.totalCents)} strong />
-        </dl>
-      )}
+
+          {quote && (
+            <dl className="mt-6 space-y-2 border-t border-line pt-4 text-sm">
+              <Row label="Subtotal" value={formatBRL(quote.subtotalCents)} />
+              {quote.discountCents > 0 && (
+                <Row label="Desconto" value={`− ${formatBRL(quote.discountCents)}`} accent />
+              )}
+              <Row label="Frete" value={formatBRL(quote.shippingCents)} />
+              <div className="flex items-end justify-between border-t border-line pt-3">
+                <dt className="font-display text-lg font-bold">Total</dt>
+                <dd className="font-display text-2xl font-extrabold">
+                  {formatBRL(quote.totalCents)}
+                </dd>
+              </div>
+            </dl>
+          )}
+        </aside>
+      </div>
     </div>
   );
 }
 
-function Row({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
+function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div className={`flex justify-between ${strong ? "font-bold text-base" : ""}`}>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
+    <div className="flex justify-between">
+      <dt className="text-muted">{label}</dt>
+      <dd className={accent ? "text-cherry-dark" : "text-ink"}>{value}</dd>
     </div>
   );
 }
