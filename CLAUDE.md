@@ -26,7 +26,10 @@ apontar o que trava o merge vs. o que é sugestão. Edge cases e testes contam.
 ## Estado atual do backlog
 
 - **TASK-001** (`tasks/TASK-001-frete-gratis.md`) — frete grátis ≥ R$150.
-  Status: **aberta**, aguardando PR do Felipe. É a primeira task (onboarding).
+  Status: **concluída** (PR #1, merged 2026-10-29). Primeira task de onboarding.
+- **TASK-002** (`tasks/TASK-002-cupom-minimo.md`) — bug: cupom recusado no valor
+  exato do mínimo. Status: **aberta**, aguardando PR do Felipe. Regressão semeada
+  de propósito em `src/lib/coupon.ts` (treino de bug fix com teste que falha antes).
 
 Ao concluir uma task, registrar aqui o status e criar a próxima em `tasks/`.
 

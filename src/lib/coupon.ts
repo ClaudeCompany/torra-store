@@ -12,7 +12,7 @@ export function applyCoupon(
 ): CouponResult {
   if (!coupon.active) return { ok: false, reason: "INACTIVE" };
   if (coupon.expiresAt && now > coupon.expiresAt) return { ok: false, reason: "EXPIRED" };
-  if (subtotalCents < coupon.minSubtotal) return { ok: false, reason: "BELOW_MINIMUM" };
+  if (subtotalCents <= coupon.minSubtotal) return { ok: false, reason: "BELOW_MINIMUM" };
 
   const raw =
     coupon.type === "PERCENT" ? Math.floor((subtotalCents * coupon.value) / 100) : coupon.value;
