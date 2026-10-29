@@ -18,10 +18,16 @@ export interface QuoteResult {
 export function buildQuote({ items, cep, coupon, now }: QuoteInput): QuoteResult {
   const subtotal = subtotalCents(items);
   const weight = totalWeightGram(items);
-  const shipping = calcShippingCents(weight, cep);
+  let shipping = calcShippingCents(weight, cep);
+
+  const FREE_SHIPPING_MIN_CENTS = 15000;
 
   let discount = 0;
   let couponError: CouponError | undefined;
+
+  if (subtotal >= FREE_SHIPPING_MIN_CENTS) {
+    shipping = 0;
+  }
 
   if (coupon) {
     const result = applyCoupon(subtotal, coupon, now);

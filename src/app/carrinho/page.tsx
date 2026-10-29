@@ -140,7 +140,10 @@ export default function CartPage() {
               {quote.discountCents > 0 && (
                 <Row label="Desconto" value={`− ${formatBRL(quote.discountCents)}`} accent />
               )}
-              <Row label="Frete" value={formatBRL(quote.shippingCents)} />
+              <Row
+                label="Frete"
+                value={quote.shippingCents === 0 ? "Frete grátis" : formatBRL(quote.shippingCents)}
+              />
               <div className="flex items-end justify-between border-t border-line pt-3">
                 <dt className="font-display text-lg font-bold">Total</dt>
                 <dd className="font-display text-2xl font-extrabold">

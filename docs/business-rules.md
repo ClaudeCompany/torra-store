@@ -57,6 +57,8 @@ Calculado por **zona** (prefixo do CEP) + **peso total** do carrinho.
 - O **primeiro quilo está incluso na base**. Cada quilo **iniciado** além do
   primeiro soma o valor "por kg" (1001g já conta como 2kg).
 - CEP é validado: 8 dígitos (com ou sem máscara). Inválido → erro, não calcula.
+- **Frete grátis** quando o subtotal (antes de cupom) é **≥ R$150,00** (`15000`
+  centavos). Limite inclusivo: R$150,00 exato já tem frete grátis.
 
 ## Total do pedido
 
@@ -65,8 +67,3 @@ total = subtotal − desconto + frete
 ```
 
 Onde `subtotal = Σ (preço da variante × quantidade)`.
-
-## Pendente (ver backlog em tasks/)
-
-- **Frete grátis acima de um limite de subtotal** — ainda não implementado.
-  É a TASK-001.

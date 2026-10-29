@@ -29,11 +29,11 @@ Hoje o frete é sempre cobrado (ver `src/lib/shipping.ts` e `src/lib/pricing.ts`
 
 ## Definition of done
 
-- [ ] Regra implementada conforme os critérios acima.
-- [ ] Teste de unidade cobrindo: acima, abaixo e **exatamente** no limite.
-- [ ] `docs/business-rules.md` atualizado (sai de "pendente").
-- [ ] Carrinho exibe "Frete grátis" quando aplicável.
-- [ ] `npm run lint`, `npm run typecheck` e `npm test` verdes.
+- [x] Regra implementada conforme os critérios acima.
+- [x] Teste de unidade cobrindo: acima, abaixo e **exatamente** no limite.
+- [x] `docs/business-rules.md` atualizado (sai de "pendente").
+- [x] Carrinho exibe "Frete grátis" quando aplicável.
+- [x] `npm run lint`, `npm run typecheck` e `npm test` verdes.
 - [ ] PR aberto seguindo o template, referenciando esta task.
 
 ## Fora de escopo
