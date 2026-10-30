@@ -12,7 +12,7 @@ desconto não aplica.
 
 Reprodução relatada:
 
-> Cupom `PRIMEIRA20` exige subtotal mínimo de R$100,00. Cliente com carrinho de
+> Cupom `TORRA20` exige subtotal mínimo de R$100,00. Cliente com carrinho de
 > **R$100,00 cravados** tenta aplicar e leva a recusa `BELOW_MINIMUM`.
 
 O esperado: R$100,00 **atinge** o mínimo, então o cupom deve valer.
