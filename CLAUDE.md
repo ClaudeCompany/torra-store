@@ -31,6 +31,10 @@ apontar o que trava o merge vs. o que é sugestão. Edge cases e testes contam.
   exato do mínimo. Status: **concluída** (PR #2, merged 2026-10-30). Bug fix com
   teste de regressão (regressão semeada de propósito em `src/lib/coupon.ts`).
 
+- **TASK-003** (`tasks/TASK-003-pagina-catalogo.md`) — página de catálogo `/cafes`
+  - corrigir os 3 links de navegação que vão pra `/`. Status: **aberta**, aguardando
+    PR do Felipe. Nasce do backlog de UX abaixo (bugs de navegação).
+
 Ao concluir uma task, registrar aqui o status e criar a próxima em `tasks/`.
 
 ## Backlog de melhorias (levantado pelo Felipe, 2026-10-30)
