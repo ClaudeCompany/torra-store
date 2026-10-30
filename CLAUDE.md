@@ -28,10 +28,30 @@ apontar o que trava o merge vs. o que é sugestão. Edge cases e testes contam.
 - **TASK-001** (`tasks/TASK-001-frete-gratis.md`) — frete grátis ≥ R$150.
   Status: **concluída** (PR #1, merged 2026-10-29). Primeira task de onboarding.
 - **TASK-002** (`tasks/TASK-002-cupom-minimo.md`) — bug: cupom recusado no valor
-  exato do mínimo. Status: **aberta**, aguardando PR do Felipe. Regressão semeada
-  de propósito em `src/lib/coupon.ts` (treino de bug fix com teste que falha antes).
+  exato do mínimo. Status: **concluída** (PR #2, merged 2026-10-30). Bug fix com
+  teste de regressão (regressão semeada de propósito em `src/lib/coupon.ts`).
 
 Ao concluir uma task, registrar aqui o status e criar a próxima em `tasks/`.
+
+## Backlog de melhorias (levantado pelo Felipe, 2026-10-30)
+
+Observações de UX/navegação que o Felipe pegou "de olho" na loja. Ainda não viraram
+task — triadas abaixo. **Causa raiz de parte dos bugs: não existe página de catálogo**
+(rotas hoje: `/`, `/carrinho`, `/produto/[slug]`). Vários links apontam pra `/`.
+
+Bugs (navegação quebrada/enganosa):
+
+- Menu "Cafés" (`Header.tsx`, href `/`) não leva a uma listagem — não há página de catálogo.
+- Breadcrumb "Cafés" na página de produto (`produto/[slug]/page.tsx:27`, href `/`) volta pra home.
+- Footer "Todos os cafés" (`Footer.tsx`, href `/`) idem.
+- Menu "Sobre" (`/#sobre`) não tem destino: a home só tem `id="processo"`, falta a seção `sobre`.
+
+Melhorias de UX no carrinho:
+
+- Persistir CEP no `localStorage` (não re-digitar após refresh).
+- Cotação fica obsoleta ao mudar quantidade: total não atualiza sem reapertar "Calcular".
+- Mostrar subtotal ao entrar no carrinho; botão revela só o frete.
+- Input de quantidade (`<input type=number>`) feio — trocar por stepper.
 
 ## Regras do projeto
 
