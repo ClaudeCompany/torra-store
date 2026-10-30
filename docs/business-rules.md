@@ -38,7 +38,7 @@ Um cupom é inválido quando:
 
 Detalhes:
 
-- A comparação de mínimo é contra o **subtotal** (antes de frete e desconto).
+- A comparação de mínimo é contra o **subtotal** (antes de frete e desconto). O **subtotal** tem que ser igual ou maior do que o minSubtotal do desconto.
 - No instante exato do `expiresAt` o cupom **ainda vale** (`now > expiresAt`
   para expirar, não `>=`).
 - Desconto nunca passa do subtotal.
