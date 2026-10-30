@@ -39,12 +39,12 @@ O `minSubtotal` é o valor **a partir do qual** o cupom vale — limite **inclus
 
 ## Definition of done
 
-- [ ] Teste que **falharia antes do fix**, cobrindo subtotal = mínimo.
-- [ ] Bug corrigido: subtotal igual ao mínimo aceita o cupom.
-- [ ] Testes de "acima" e "abaixo" do mínimo continuam corretos.
-- [ ] `docs/business-rules.md` deixa explícito que o mínimo é inclusivo.
-- [ ] `npm run lint`, `npm run typecheck` e `npm test` verdes.
-- [ ] PR aberto seguindo o template, referenciando esta task.
+- [x] Teste que **falharia antes do fix**, cobrindo subtotal = mínimo.
+- [x] Bug corrigido: subtotal igual ao mínimo aceita o cupom.
+- [x] Testes de "acima" e "abaixo" do mínimo continuam corretos.
+- [x] `docs/business-rules.md` deixa explícito que o mínimo é inclusivo.
+- [x] `npm run lint`, `npm run typecheck` e `npm test` verdes.
+- [] PR aberto seguindo o template, referenciando esta task.
 
 ## Fora de escopo
 

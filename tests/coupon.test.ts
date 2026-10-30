@@ -56,4 +56,11 @@ describe("applyCoupon", () => {
       reason: "BELOW_MINIMUM",
     });
   });
+
+  it("aceita cupom com valor igual ao minimo aceitável", () => {
+    expect(applyCoupon(10000, coupon({ minSubtotal: 10000 }))).toEqual({
+      ok: true,
+      discountCents: 1000,
+    });
+  });
 });
