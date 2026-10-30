@@ -44,7 +44,7 @@ O `minSubtotal` é o valor **a partir do qual** o cupom vale — limite **inclus
 - [x] Testes de "acima" e "abaixo" do mínimo continuam corretos.
 - [x] `docs/business-rules.md` deixa explícito que o mínimo é inclusivo.
 - [x] `npm run lint`, `npm run typecheck` e `npm test` verdes.
-- [] PR aberto seguindo o template, referenciando esta task.
+- [x] PR aberto seguindo o template, referenciando esta task.
 
 ## Fora de escopo
 
